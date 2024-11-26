@@ -12,6 +12,9 @@ public class NoteHitManager : MonoBehaviour
     public float detectionRadius = 0.5f; // Radius for note detection in each lane
 
     public TMP_Text scoreText;
+    public TMP_Text hitText;
+
+    public AudioClip hitSound;
 
     private PlayerInputActions inputActions;
 
@@ -40,15 +43,17 @@ public class NoteHitManager : MonoBehaviour
 
         if (hitColliders.Length > 0)
         {
-            // Award points and destroy the note
-            score += 1;
+            // Adds one score and destroy the note (didnt have time to scale score with accuracy)
+            score ++;
             Destroy(hitColliders[0].gameObject);
-            Debug.Log($"Hit! Current score: {score}");
             scoreText.text = "Notes Hit: " + score;
+            hitText.text = "Hit";
+            
+            AudioSource.PlayClipAtPoint(hitSound, transform.position);
         }
         else
         {
-            Debug.Log("Miss!");
+            hitText.text = "Miss";
         }
     }
 }

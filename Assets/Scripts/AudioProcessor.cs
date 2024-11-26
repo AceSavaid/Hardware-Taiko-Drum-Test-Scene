@@ -5,7 +5,7 @@ public static class AudioProcessor
 {
     public static List<float> AnalyzeAudio(AudioClip clip, int bpm, string complexity)
     {
-        // Convert complexity to a multiplier for note density
+        //Could make this an enum but im tired
         float complexityMultiplier = complexity.ToLower() switch
         {
             "easy" => 0.5f,

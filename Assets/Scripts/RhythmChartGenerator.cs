@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class RhythmChartGenerator : MonoBehaviour
 {
+    [Header("Audio")]
     public AudioClip audioClip; // Input WAV file
     public int bpm = 120; // Beats per minute
-    public string complexity = "medium"; // "easy", "medium", "hard"
-
-    public GameObject notePrefab; 
-    public Transform lane1; // Transform for the left lane
-    public Transform lane2; // Transform for the right lane
+    private string complexity = "medium"; // "easy", "medium", "hard"
 
     public string saveFilePath = "Assets/NotesLayout.txt"; // File to save the layout
 
@@ -20,9 +17,9 @@ public class RhythmChartGenerator : MonoBehaviour
     void Start()
     {
         // Validate inputs
-        if (audioClip == null || notePrefab == null || lane1 == null || lane2 == null)
+        if (audioClip == null )
         {
-            Debug.LogError("Missing required references!");
+            Debug.LogError("Missing Audio Clip");
             return;
         }
 
@@ -42,13 +39,12 @@ public class RhythmChartGenerator : MonoBehaviour
     List<(float, int)> GenerateNoteLayout(List<float> beatTimestamps)
     {
         List<(float, int)> layout = new List<(float, int)>();
-        bool isLeftLane = true;
 
         foreach (float timestamp in beatTimestamps)
         {
+            //randomly selects a lane to allocate the note (instead of alternating)
             int lane = Random.Range(0, 1);// 0 for left, 1 for right
             layout.Add((timestamp, lane));
-            isLeftLane = !isLeftLane; // Alternate lanes
         }
 
         Debug.Log("Chart generation complete!");

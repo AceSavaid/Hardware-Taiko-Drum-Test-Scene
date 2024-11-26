@@ -13,10 +13,10 @@ public class Note : MonoBehaviour
     void Update()
     {
         // Move the note down the screen 
-        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        transform.Translate(Vector3.left * speed * Time.deltaTime);
 
-        // Destroy the note after it goes off-screen
-        if (transform.position.y < -10f)
+        // Destroy the note after it goes past hit zone
+        if (transform.position.x < -20f)
         {
             Destroy(gameObject);
         }

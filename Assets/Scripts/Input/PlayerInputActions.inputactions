@@ -43,7 +43,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Left",
+                    "action": "Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -65,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
-                    "action": "Right",
+                    "action": "Left",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
