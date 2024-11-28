@@ -6,8 +6,8 @@ public class RhythmChartPlayer : MonoBehaviour
 {
     public string loadFilePath = "Assets/NotesLayout.txt"; // File to load the layout from
     public GameObject notePrefab; // Prefab for the notes
-    public Transform leftLane; // Transform for the left lane
-    public Transform rightLane; // Transform for the right lane
+    public Transform blueLane; // Transform for the left lane
+    public Transform redLane; // Transform for the right lane
     public AudioSource audioSource; // Audio source for playback
 
     private List<(float timestamp, int lane)> noteLayout;
@@ -16,7 +16,7 @@ public class RhythmChartPlayer : MonoBehaviour
     void Start()
     {
         // Validate inputs
-        if (notePrefab == null || leftLane == null || rightLane == null || audioSource == null)
+        if (notePrefab == null || blueLane == null || redLane == null || audioSource == null)
         {
             Debug.LogError("Missing required references!");
             return;
@@ -48,7 +48,7 @@ public class RhythmChartPlayer : MonoBehaviour
             if (currentTime >= timestamp)
             {
                 // Determine the lane
-                Transform laneTransform = lane == 0 ? leftLane : rightLane;
+                Transform laneTransform = lane == 0 ? blueLane : redLane;
 
                 Instantiate(notePrefab, laneTransform.position, Quaternion.identity);
 

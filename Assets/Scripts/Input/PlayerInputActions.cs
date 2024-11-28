@@ -28,7 +28,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""id"": ""0dee8d28-9b91-4870-8040-0cc7d9facb18"",
             ""actions"": [
                 {
-                    ""name"": ""Left"",
+                    ""name"": ""LeftRim"",
                     ""type"": ""Button"",
                     ""id"": ""ee2c87a7-b9a5-45eb-8621-95d4417d3dda"",
                     ""expectedControlType"": ""Button"",
@@ -37,9 +37,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Right"",
+                    ""name"": ""LeftCenter"",
+                    ""type"": ""Button"",
+                    ""id"": ""c0ddbdb5-3dfa-4c6f-a074-c5995eecf24e"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightCenter"",
                     ""type"": ""Button"",
                     ""id"": ""9b751545-29fc-4ea7-830d-fd5703cc8610"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightRim"",
+                    ""type"": ""Button"",
+                    ""id"": ""58ba721c-42de-451c-ae84-b5aff9dc84af"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -53,19 +71,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Left"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""1140d69a-8e58-4141-a88c-6ca85f1a9062"",
-                    ""path"": ""<Keyboard>/f"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Right"",
+                    ""groups"": """",
+                    ""action"": ""LeftRim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -75,8 +82,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/j"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Right"",
+                    ""groups"": """",
+                    ""action"": ""RightCenter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -86,8 +93,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/k"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""Left"",
+                    ""groups"": """",
+                    ""action"": ""RightRim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1140d69a-8e58-4141-a88c-6ca85f1a9062"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LeftCenter"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -104,8 +122,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
 }");
         // Game
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
-        m_Game_Left = m_Game.FindAction("Left", throwIfNotFound: true);
-        m_Game_Right = m_Game.FindAction("Right", throwIfNotFound: true);
+        m_Game_LeftRim = m_Game.FindAction("LeftRim", throwIfNotFound: true);
+        m_Game_LeftCenter = m_Game.FindAction("LeftCenter", throwIfNotFound: true);
+        m_Game_RightCenter = m_Game.FindAction("RightCenter", throwIfNotFound: true);
+        m_Game_RightRim = m_Game.FindAction("RightRim", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -167,14 +187,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     // Game
     private readonly InputActionMap m_Game;
     private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
-    private readonly InputAction m_Game_Left;
-    private readonly InputAction m_Game_Right;
+    private readonly InputAction m_Game_LeftRim;
+    private readonly InputAction m_Game_LeftCenter;
+    private readonly InputAction m_Game_RightCenter;
+    private readonly InputAction m_Game_RightRim;
     public struct GameActions
     {
         private @PlayerInputActions m_Wrapper;
         public GameActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Left => m_Wrapper.m_Game_Left;
-        public InputAction @Right => m_Wrapper.m_Game_Right;
+        public InputAction @LeftRim => m_Wrapper.m_Game_LeftRim;
+        public InputAction @LeftCenter => m_Wrapper.m_Game_LeftCenter;
+        public InputAction @RightCenter => m_Wrapper.m_Game_RightCenter;
+        public InputAction @RightRim => m_Wrapper.m_Game_RightRim;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -184,22 +208,34 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_GameActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_GameActionsCallbackInterfaces.Add(instance);
-            @Left.started += instance.OnLeft;
-            @Left.performed += instance.OnLeft;
-            @Left.canceled += instance.OnLeft;
-            @Right.started += instance.OnRight;
-            @Right.performed += instance.OnRight;
-            @Right.canceled += instance.OnRight;
+            @LeftRim.started += instance.OnLeftRim;
+            @LeftRim.performed += instance.OnLeftRim;
+            @LeftRim.canceled += instance.OnLeftRim;
+            @LeftCenter.started += instance.OnLeftCenter;
+            @LeftCenter.performed += instance.OnLeftCenter;
+            @LeftCenter.canceled += instance.OnLeftCenter;
+            @RightCenter.started += instance.OnRightCenter;
+            @RightCenter.performed += instance.OnRightCenter;
+            @RightCenter.canceled += instance.OnRightCenter;
+            @RightRim.started += instance.OnRightRim;
+            @RightRim.performed += instance.OnRightRim;
+            @RightRim.canceled += instance.OnRightRim;
         }
 
         private void UnregisterCallbacks(IGameActions instance)
         {
-            @Left.started -= instance.OnLeft;
-            @Left.performed -= instance.OnLeft;
-            @Left.canceled -= instance.OnLeft;
-            @Right.started -= instance.OnRight;
-            @Right.performed -= instance.OnRight;
-            @Right.canceled -= instance.OnRight;
+            @LeftRim.started -= instance.OnLeftRim;
+            @LeftRim.performed -= instance.OnLeftRim;
+            @LeftRim.canceled -= instance.OnLeftRim;
+            @LeftCenter.started -= instance.OnLeftCenter;
+            @LeftCenter.performed -= instance.OnLeftCenter;
+            @LeftCenter.canceled -= instance.OnLeftCenter;
+            @RightCenter.started -= instance.OnRightCenter;
+            @RightCenter.performed -= instance.OnRightCenter;
+            @RightCenter.canceled -= instance.OnRightCenter;
+            @RightRim.started -= instance.OnRightRim;
+            @RightRim.performed -= instance.OnRightRim;
+            @RightRim.canceled -= instance.OnRightRim;
         }
 
         public void RemoveCallbacks(IGameActions instance)
@@ -228,7 +264,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     }
     public interface IGameActions
     {
-        void OnLeft(InputAction.CallbackContext context);
-        void OnRight(InputAction.CallbackContext context);
+        void OnLeftRim(InputAction.CallbackContext context);
+        void OnLeftCenter(InputAction.CallbackContext context);
+        void OnRightCenter(InputAction.CallbackContext context);
+        void OnRightRim(InputAction.CallbackContext context);
     }
 }

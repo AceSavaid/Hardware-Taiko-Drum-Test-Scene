@@ -6,7 +6,7 @@
             "id": "0dee8d28-9b91-4870-8040-0cc7d9facb18",
             "actions": [
                 {
-                    "name": "Left",
+                    "name": "LeftRim",
                     "type": "Button",
                     "id": "ee2c87a7-b9a5-45eb-8621-95d4417d3dda",
                     "expectedControlType": "Button",
@@ -15,9 +15,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Right",
+                    "name": "LeftCenter",
+                    "type": "Button",
+                    "id": "c0ddbdb5-3dfa-4c6f-a074-c5995eecf24e",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightCenter",
                     "type": "Button",
                     "id": "9b751545-29fc-4ea7-830d-fd5703cc8610",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "RightRim",
+                    "type": "Button",
+                    "id": "58ba721c-42de-451c-ae84-b5aff9dc84af",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -31,19 +49,8 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Left",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1140d69a-8e58-4141-a88c-6ca85f1a9062",
-                    "path": "<Keyboard>/f",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Right",
+                    "groups": "",
+                    "action": "LeftRim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -53,8 +60,8 @@
                     "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Right",
+                    "groups": "",
+                    "action": "RightCenter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -64,8 +71,19 @@
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Keyboard",
-                    "action": "Left",
+                    "groups": "",
+                    "action": "RightRim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1140d69a-8e58-4141-a88c-6ca85f1a9062",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftCenter",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

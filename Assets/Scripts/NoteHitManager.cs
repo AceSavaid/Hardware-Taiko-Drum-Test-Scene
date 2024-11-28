@@ -6,13 +6,21 @@ using TMPro;
 public class NoteHitManager : MonoBehaviour
 {
     public int score = 0; // Player's score
+    public int miss = 0;
     public LayerMask noteLayer; // Layer assigned to notes
-    public Transform leftLaneTrigger; // Trigger area for the left lane
-    public Transform rightLaneTrigger; // Trigger area for the right lane
+    public Transform blueLaneTrigger; // Trigger area for the left lane
+    public Transform redLaneTrigger; // Trigger area for the right lane
     public float detectionRadius = 0.5f; // Radius for note detection in each lane
 
     public TMP_Text scoreText;
+    public TMP_Text missText;
     public TMP_Text hitText;
+
+
+    public GameObject LeftRim;
+    public GameObject RightRim;
+    public GameObject LeftCenter;
+    public GameObject RightCenter;
 
     public AudioClip hitSound;
 
@@ -22,8 +30,23 @@ public class NoteHitManager : MonoBehaviour
     {
         inputActions = new PlayerInputActions();
 
-        inputActions.Game.Left.performed += _ => CheckLaneHit(leftLaneTrigger);
-        inputActions.Game.Right.performed += _ => CheckLaneHit(rightLaneTrigger);
+        inputActions.Game.LeftRim.performed += _ => CheckLaneHit(blueLaneTrigger);
+        inputActions.Game.LeftRim.performed += _ => HighlightColour(LeftRim,Color.blue);
+        inputActions.Game.LeftRim.canceled += _ => HighlightColour(LeftRim,Color.white);
+
+
+        inputActions.Game.RightRim.performed += _ => CheckLaneHit(blueLaneTrigger);
+        inputActions.Game.RightRim.performed += _ => HighlightColour(RightRim, Color.blue);
+        inputActions.Game.RightRim.canceled += _ => HighlightColour(RightRim, Color.white);
+
+        inputActions.Game.LeftCenter.performed += _ => CheckLaneHit(redLaneTrigger);
+        inputActions.Game.LeftCenter.performed += _ => HighlightColour(LeftCenter, Color.red);
+        inputActions.Game.LeftCenter.canceled += _ => HighlightColour(LeftCenter, Color.white);
+
+
+        inputActions.Game.RightCenter.performed += _ => CheckLaneHit(redLaneTrigger);
+        inputActions.Game.RightCenter.performed += _ => HighlightColour(RightCenter, Color.red);
+        inputActions.Game.RightCenter.canceled += _ => HighlightColour(RightCenter, Color.white);
     }
 
     void OnEnable()
@@ -53,7 +76,13 @@ public class NoteHitManager : MonoBehaviour
         }
         else
         {
-            hitText.text = "Miss";
+            miss++;
+            missText.text = "Misses: " + miss;
         }
+    }
+
+    void HighlightColour(GameObject gameObject, Color colour)
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = colour;
     }
 }
