@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Collections;
 
 public class NoteHitManager : MonoBehaviour
 {
@@ -32,21 +33,21 @@ public class NoteHitManager : MonoBehaviour
 
         inputActions.Game.LeftRim.performed += _ => CheckLaneHit(blueLaneTrigger);
         inputActions.Game.LeftRim.performed += _ => HighlightColour(LeftRim,Color.blue);
-        inputActions.Game.LeftRim.canceled += _ => HighlightColour(LeftRim,Color.white);
+        inputActions.Game.LeftRim.canceled += _ => StartCoroutine(FadeColour(LeftRim, Color.white));
 
 
         inputActions.Game.RightRim.performed += _ => CheckLaneHit(blueLaneTrigger);
         inputActions.Game.RightRim.performed += _ => HighlightColour(RightRim, Color.blue);
-        inputActions.Game.RightRim.canceled += _ => HighlightColour(RightRim, Color.white);
+        inputActions.Game.RightRim.canceled += _ => StartCoroutine(FadeColour(RightRim, Color.white));
 
         inputActions.Game.LeftCenter.performed += _ => CheckLaneHit(redLaneTrigger);
         inputActions.Game.LeftCenter.performed += _ => HighlightColour(LeftCenter, Color.red);
-        inputActions.Game.LeftCenter.canceled += _ => HighlightColour(LeftCenter, Color.white);
+        inputActions.Game.LeftCenter.canceled += _ => StartCoroutine(FadeColour(LeftCenter, Color.white));
 
 
         inputActions.Game.RightCenter.performed += _ => CheckLaneHit(redLaneTrigger);
         inputActions.Game.RightCenter.performed += _ => HighlightColour(RightCenter, Color.red);
-        inputActions.Game.RightCenter.canceled += _ => HighlightColour(RightCenter, Color.white);
+        inputActions.Game.RightCenter.canceled += _ => StartCoroutine(FadeColour(RightCenter, Color.white));
     }
 
     void OnEnable()
@@ -78,11 +79,26 @@ public class NoteHitManager : MonoBehaviour
         {
             miss++;
             missText.text = "Misses: " + miss;
+            hitText.text = "Miss";
         }
+        StartCoroutine(HideText());
     }
 
     void HighlightColour(GameObject gameObject, Color colour)
     {
         gameObject.GetComponent<SpriteRenderer>().color = colour;
+    }
+    
+    IEnumerator FadeColour(GameObject gameObject, Color colour)
+    {
+
+        yield return new WaitForSeconds(0.12f);
+        gameObject.GetComponent<SpriteRenderer>().color = colour;
+    }
+
+    IEnumerator HideText()
+    {
+        yield return new WaitForSeconds(0.15f);
+        hitText.text = "";
     }
 }

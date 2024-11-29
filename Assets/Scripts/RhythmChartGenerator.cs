@@ -7,7 +7,7 @@ public class RhythmChartGenerator : MonoBehaviour
     [Header("Audio")]
     public AudioClip audioClip; // Input WAV file
     public int bpm = 120; // Beats per minute
-    private string complexity = "medium"; // "easy", "medium", "hard"
+    private string complexity = "hard"; // "easy", "medium", "hard"
 
     public string saveFilePath = "Assets/NotesLayout.txt"; // File to save the layout
 
@@ -43,7 +43,7 @@ public class RhythmChartGenerator : MonoBehaviour
         foreach (float timestamp in beatTimestamps)
         {
             //randomly selects a lane to allocate the note (instead of alternating)
-            int lane = Random.Range(0, 1);// 0 for left, 1 for right
+            int lane = Random.Range(0, 2);// 0 for left, 1 for right
             layout.Add((timestamp, lane));
         }
 
